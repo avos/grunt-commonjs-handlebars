@@ -52,6 +52,7 @@ module.exports = function(grunt) {
       srcFiles = grunt.file.expandFiles(files.src);
       srcFiles.forEach(function(file) {
         src = grunt.file.read(file);
+        var content = '';
 
         try {
           compiled = require('handlebars').precompile(src);
@@ -67,19 +68,33 @@ module.exports = function(grunt) {
         // register partial or add template to namespace
         if(isPartial.test(_.last(file.split('/')))) {
           filename = processPartialName(file);
-          partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
+          content = 'Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');';
         } else {
           filename = processName(file);
-          templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+          content = (nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+        }
+
+        //console.log(filename);
+        // output = output.concat(partials, templates);
+
+        if (content.length > 0) {
+          output.unshift(nsInfo.declaration);
+          //console.log("Path: " + files.dest + filename.replace('.hbs', '.js').replace('app/templates/', ''))
+          grunt.file.write(files.dest + filename.replace('.hbs', '.js').replace('app/templates/', ''), content);
+          grunt.log.writeln('File "' + files.dest + '" created.');
         }
       });
+      /*
+      console.log(filename);
       output = output.concat(partials, templates);
 
+      
       if (output.length > 0) {
         output.unshift(nsInfo.declaration);
-        grunt.file.write(files.dest, output.join('\n\n'));
+        grunt.file.write(files.dest + '/' + filename, output.join('\n\n'));
         grunt.log.writeln('File "' + files.dest + '" created.');
       }
+      */
     });
   });
 
