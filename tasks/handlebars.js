@@ -51,8 +51,8 @@ module.exports = function(grunt) {
     this.files.forEach(function(files) {
       srcFiles = grunt.file.expandFiles(files.src);
       srcFiles.forEach(function(file) {
-        src = grunt.file.read(file);
-        var content = '';
+
+        src = grunt.file.read(file); //The handlebars file
 
         try {
           compiled = require('handlebars').precompile(src);
@@ -68,31 +68,46 @@ module.exports = function(grunt) {
         // register partial or add template to namespace
         if(isPartial.test(_.last(file.split('/')))) {
           filename = processPartialName(file);
-          content = 'Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');';
+          partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
         } else {
           filename = processName(file);
-          content = (nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
-        }
+          var filepath = _.last(filename.split('app/templates/'))
+          
+          var justpath = _.first(filepath.split('.'))
+          //console.log(justpath)
+          
 
-        //console.log(filename);
-        // output = output.concat(partials, templates);
 
-        if (content.length > 0) {
-          output.unshift(nsInfo.declaration);
-          //console.log("Path: " + files.dest + filename.replace('.hbs', '.js').replace('app/templates/', ''))
-          grunt.file.write(files.dest + filename.replace('.hbs', '.js').replace('app/templates/', ''), content);
-          grunt.log.writeln('File "' + files.dest + '" created.');
+          var justname = _.first(_.last(filename.split('/')).split('.'))
+          var destination = files.dest + justpath + '.js';
+          //console.log(destination)
+          
+          //console.log(justname)
+
+          //templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+          compiled = compiled + ');';
+          templates.push('module.exports = Handlebars.template(' + compiled);
+          //templates.push(');');
+          
+          grunt.file.write(destination, templates.join('\n\n'));
+          grunt.log.writeln('File "' + destination + '" created.');
+          output.length = partials.length = templates.length = 0;
+          //grunt.file.write(files.dest, output.join('\n\n'));
+          //grunt.log.writeln('File "' + files.dest + '" created.');
         }
       });
-      /*
-      console.log(filename);
-      output = output.concat(partials, templates);
+      //output = output.concat(partials, templates);
 
-      
+      /*
       if (output.length > 0) {
         output.unshift(nsInfo.declaration);
-        grunt.file.write(files.dest + '/' + filename, output.join('\n\n'));
+        
+        console.log(files.dest)
+        //console.log(files.dest, output.join('\n\n'))
+        
+        grunt.file.write(files.dest, output.join('\n\n'));
         grunt.log.writeln('File "' + files.dest + '" created.');
+        output.length = partials.length = templates.length = 0;
       }
       */
     });
