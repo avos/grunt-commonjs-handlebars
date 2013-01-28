@@ -61,7 +61,7 @@ module.exports = function(grunt) {
           compiled = require('handlebars').precompile(src);
           // if configured to, wrap template in Handlebars.template call
           if (options.wrapped) {
-            compiled = 'Handlebars.template('+compiled+')';
+            compiled = 'Handlebars.template('+compiled+')\n';
           }
         } catch (e) {
           grunt.log.error(e);
@@ -74,7 +74,7 @@ module.exports = function(grunt) {
           partials.push('Handlebars.registerPartial('+JSON.stringify(filename)+', '+compiled+');');
         } else {
           filename = processName(filepath);
-          templates.push(nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';');
+          templates.push('module.exports = '+compiled+';\n');
         }
       });
 
@@ -82,7 +82,7 @@ module.exports = function(grunt) {
       if (output.length < 1) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
-        output.unshift(nsInfo.declaration);
+
         grunt.file.write(f.dest, output.join(grunt.util.normalizelf(options.separator)));
         grunt.log.writeln('File "' + f.dest + '" created.');
       }
