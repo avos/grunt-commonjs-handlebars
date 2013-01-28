@@ -1,3 +1,5 @@
+# Usage Examples
+
 ```js
 handlebars: {
   compile: {
