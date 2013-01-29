@@ -1,13 +1,3 @@
-/*
- * grunt-contrib-handlebars
- * http://gruntjs.com/
- *
- * Copyright (c) 2012 Tim Branyen, contributors
- * Licensed under the MIT license.
- */
-
-'use strict';
-
 module.exports = function(grunt) {
 
   // Project configuration.

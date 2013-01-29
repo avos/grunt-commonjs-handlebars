@@ -1,12 +1,10 @@
 /*
- * grunt-contrib-handlebars
- * http://gruntjs.com/
+ * grunt-commonjs-handlebars
+ * https://github.com/avos/grunt-commonjs-handlebars
  *
- * Copyright (c) 2012 Tim Branyen, contributors
+ * Copyright (c) 2013 Team Delicious, AVOS Systems Inc., Tim Branyen, contributors
  * Licensed under the MIT license.
  */
-
-'use strict';
 
 module.exports = function(grunt) {
 
@@ -25,13 +23,10 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('handlebars', 'Compile handlebars templates and partials.', function() {
     var options = this.options({
-      namespace: 'JST',
       separator: grunt.util.linefeed + grunt.util.linefeed,
       wrapped: true
     });
     grunt.verbose.writeflags(options, 'Options');
-
-    var nsInfo = helpers.getNamespaceDeclaration(options.namespace);
 
     // assign regex for partial detection
     var isPartial = options.partialRegex || /^_/;

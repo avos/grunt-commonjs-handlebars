@@ -1,23 +1,22 @@
 {
-  "name": "grunt-contrib-handlebars",
-  "description": "Precompile Handlebars templates to JST file.",
-  "version": "0.5.0rc7",
-  "homepage": "https://github.com/gruntjs/grunt-contrib-handlebars",
+  "name": "grunt-commonjs-handlebars",
+  "description": "Precompile Handlebars templates into commonjs modules.",
+  "version": "0.1.0rc7",
+  "homepage": "https://github.com/avos/grunt-commonjs-handlebars",
   "author": {
-    "name": "Grunt Team",
-    "url": "http://gruntjs.com/"
+    "name": "Chris Abrams"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/gruntjs/grunt-contrib-handlebars.git"
+    "url": "git://github.com/avos/grunt-commonjs-handlebars.git"
   },
   "bugs": {
-    "url": "https://github.com/gruntjs/grunt-contrib-handlebars/issues"
+    "url": "https://github.com/avos/grunt-commonjs-handlebars/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/gruntjs/grunt-contrib-handlebars/blob/master/LICENSE-MIT"
+      "url": "https://github.com/avos/grunt-commonjs-handlebars/blob/master/LICENSE-MIT"
     }
   ],
   "main": "Gruntfile.js",
@@ -40,5 +39,33 @@
   },
   "keywords": [
     "gruntplugin"
-  ]
+  ],
+  "contributors": [
+    {
+      "name": "Chris Abrams",
+      "url": "http://chrisabrams.com"
+    },
+    {
+      "name": "Tim Branyen",
+      "url": "http://tbranyen.com"
+    },
+    {
+      "name": "Tyler Kellen",
+      "url": "http://goingslowly.com/"
+    },
+    {
+      "name": "Chris Talkington",
+      "url": "http://christalkington.com/"
+    },
+    {
+      "name": "David Mosher",
+      "url": "http://blog.davemo.com/"
+    },
+    {
+      "name": "Larry Davis",
+      "url": "http://lazd.net/"
+    }
+  ],
+  "_id": "grunt-commonjs-handlebars@0.1.0rc7",
+  "_from": "grunt-commonjs-handlebars@https://github.com/avos/grunt-commonjs-handlebars/tarball/master"
 }
