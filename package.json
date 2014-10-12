@@ -30,7 +30,7 @@
     "handlebars": "1.0.8",
     "strip-path": "1.0.0",
     "maxmin": "1.0.0",
-    "nsdeclare", "0.1.0"
+    "nsdeclare": "0.1.0"
   },
   "devDependencies": {
     "grunt-contrib-jshint": "0.1.1rc6",

@@ -7,9 +7,10 @@
  */
 
 module.exports = function(grunt) {
+  "use strict";
 
   var _ = grunt.util._;
-  var helpers = require('grunt-lib-contrib').init(grunt);
+  //var helpers = require('grunt-lib-contrib').init(grunt);
 
   // filename conversion for templates
   var defaultProcessName = function(name) { return name; };

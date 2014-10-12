@@ -1,47 +1,55 @@
-# grunt-commonjs-handlebars [![Build Status](https://secure.travis-ci.org/avos/grunt-commonjs-handlebars.png?branch=master)](http://travis-ci.org/avos/grunt-contrib-handlebars)
+# {%= name %} v{%= version %}{% if (travis) { %} [![Build Status: Linux]({%= travis %}.png?branch=master)]({%= travis %}){% } %}{% if (appveyor) { %} <a href="https://ci.appveyor.com/project/gruntjs/{%= name %}"><img src="{%= appveyor %}" alt="Build Status: Windows" height="18" /></a>{% } %}
 
-> Precompile Handlebars templates into commonjs modules.
+> {%= description %}
+
+{% if (in_development) { %}
+_Note that this is not an official Grunt plugin release! If you want to use this in a project, please be sure to follow the instructions for installing development versions, as outlined in the [Installing Grunt](http://gruntjs.com/installing-grunt) guide._
+{% } %}
 
 ## Getting Started
-If you haven't used [grunt][] before, be sure to check out the [Getting Started][] guide, as it explains how to create a [gruntfile][Getting Started] as well as install and use grunt plugins. Once you're familiar with that process, install this plugin with this command:
+This plugin requires Grunt `{%= peerDependencies.grunt %}`
+
+If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-commonjs-handlebars --save-dev
+npm install {%= name %} --save-dev
 ```
-[grunt]: http://gruntjs.com/
-[Getting Started]: https://github.com/gruntjs/grunt/blob/devel/docs/getting_started.md
 
-## Handlebars task
-_Run this task with the `grunt handlebars` command._
-
-_This task is a [multi task][] so any targets, files and options should be specified according to the [multi task][] documentation._
-[multi task]: https://github.com/gruntjs/grunt/wiki/Configuring-tasks
-
-### Usage Examples
+Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
 
 ```js
-handlebars: {
-  dist: {
-    files: {
-      "path/to/result.js": "path/to/source.hbs",
-      "path/to/another.js": ["path/to/sources/*.hbs", "path/to/more/*.hbs"]
-    }
-  },
-
-  //This is an example to convert each .hbs into its own .js file.
-  dev: {
-    files: grunt.file.expandMapping(['app/views/templates/**/*.hbs'], 'tmp/views/templates/', {
-      rename: (destBase, destPath) ->
-        return destBase + destPath.split('app/views/templates/')[1].replace /\.hbs$/, '.js'
-    })
-  }
-}
+grunt.loadNpmTasks('{%= name %}');
 ```
 
+{%= docs.plugin.overview || '' %}
+
+{% _.each(docs.task, function(doc, name) { %}
+## {%= _.capitalize(name) %} task
+_Run this task with the `grunt {%= name %}` command._
+
+{%= doc.overview || '' %}
+{%= doc.options || '' %}
+{%= doc.examples || '' %}
+{% }); %}
 ## Release History
+{% if (changelog) {
+  _.each(changelog, function(details, version) {
+    var date = details.date;
+    if (date instanceof Date) {
+      date = grunt.template.date(new Date(date.getTime() + date.getTimezoneOffset() * 60000), 'yyyy-mm-dd');
+    }
+    print('\n * ' + [
+      date,
+      version,
+      details.changes.join(' '),
+    ].join('\u2003\u2003\u2003'));
+  });
+} else { %}
+_(Nothing yet)_
+{% } %}
 
- * 2013-01-22   v0.1.0rc7   Initial release.
+---
 
-## License
-Copyright (c) 2012 Team Delicious, AVOS Systems Inc., Tim Branyen, contributors
-Licensed under the MIT license.
+Task submitted by [{%= authors[0].name %}]({%= authors[0].url %})
+
+*This file was generated on {%= grunt.template.today() %}.*
